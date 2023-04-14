@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Image from "next/legacy/image";
+import Image from 'next/image';
 import { GetServerSideProps, NextPage } from 'next';
 
 type Product = {
@@ -14,7 +14,7 @@ type HomePageProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async () => {
-  const res = await axios.get('https://spin-http-js-oz6sxnhe.fermyon.app/api/products');
+  const res = await axios.get(`${process.env.API_URL}`);
   const products = res.data;
 
   return {
@@ -24,16 +24,16 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async () =>
   };
 };
 
-
-
 const HomePage: NextPage<HomePageProps> = ({ products }) => {
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Products</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {products.map((product) => (
-          <div key={product.id} className="border border-gray-200 p-4 rounded">
-            <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
+    <div className="p-4 bg-gray-100 min-h-screen">
+      <h1 className="text-4xl font-bold mb-8 text-center">Products</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {products.map((product) => (
+          <div key={product.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="p-6">
+              <h2 className="text-2xl font-semibold mb-2 text-gray-800">{product.name}</h2>
+            </div>
           </div>
         ))}
       </div>
