@@ -30,9 +30,7 @@ const HomePage: NextPage<HomePageProps> = ({ products }) => {
   );
 };
 
-export default HomePage;
-
-export async function getServerSideProps() {
+export const getServerSideProps : GetServerSideProps = async () => {
   const res = await axios.get(`${process.env.API_URL}`);
   const products = res.data;
 
@@ -42,3 +40,5 @@ export async function getServerSideProps() {
     },
   };
 };
+
+export default HomePage;
