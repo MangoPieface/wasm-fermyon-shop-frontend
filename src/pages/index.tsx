@@ -13,17 +13,6 @@ type HomePageProps = {
   products: Product[];
 };
 
-export const getServerSideProps: GetServerSideProps<HomePageProps> = async () => {
-  const res = await axios.get(`${process.env.API_URL}`);
-  const products = res.data;
-
-  return {
-    props: {
-      products,
-    },
-  };
-};
-
 const HomePage: NextPage<HomePageProps> = ({ products }) => {
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
@@ -42,3 +31,14 @@ const HomePage: NextPage<HomePageProps> = ({ products }) => {
 };
 
 export default HomePage;
+
+export async function getServerSideProps() {
+  const res = await axios.get(`${process.env.API_URL}`);
+  const products = res.data;
+
+  return {
+    props: {
+      products,
+    },
+  };
+};
