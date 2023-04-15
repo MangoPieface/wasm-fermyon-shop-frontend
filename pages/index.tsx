@@ -9,6 +9,7 @@ type Product = {
   category_id: number;
 };
 
+
 type HomePageProps = {
   products: Product[];
 };
@@ -29,9 +30,9 @@ const HomePage = ({ products }: HomePageProps) => (
   );
 
 export const getServerSideProps : GetServerSideProps = async () => {
-  const res = await axios.get(`${process.env.API_URL}`);
-  const products = res.data;
-
+  const request = await fetch(`${process.env.HOST}/api/wasm-api`)
+  const products = await request.json(); 
+  
   return {
     props: {
       products,
